@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Conversor de Temperatura</string>
+    <string name="temperature">Temperatura:</string>
+    <string name="hint_temperature">Digite a Temperatura:</string>
+    <string name="celsius">Celsius</string>
+    <string name="fahrenheit">Fahrenheit</string>
+    <string name="msgCtoF">Realizada a Conversão de Celsius para Fahrenheit</string>
+    <string name="msgFtoC">Realizada a Conversão de Fahrenheit para Celsius</string>
+    <string name="error_popup_noitfy">Não foi Possível Realizar a Conversão de Temperatura com os Dados Informados</string>
 </resources>
