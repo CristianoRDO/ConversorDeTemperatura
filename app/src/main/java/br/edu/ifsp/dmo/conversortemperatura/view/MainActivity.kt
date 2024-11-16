@@ -70,7 +70,9 @@ class MainActivity : AppCompatActivity() {
 
             when(converter)
             {
-                CelsiusStrategy -> binding.textviewTextResult.text = "${getString(R.string.msgConversion)} ${getString(R.string.celsius)} ${getString(R.string.msgConversion2)} $toScale "
+                CelsiusStrategy -> binding.textviewTextResult.text = "${getString(R.string.msgConversion)} ${getString(R.string.celsius)} ${getString(R.string.msgConversion2)} $toScale"
+                FahrenheitStrategy -> binding.textviewTextResult.text = "${getString(R.string.msgConversion)} ${getString(R.string.fahrenheit)} ${getString(R.string.msgConversion2)} $toScale "
+                KelvinStrategy -> binding.textviewTextResult.text = "${getString(R.string.msgConversion)} ${getString(R.string.kelvin)} ${getString(R.string.msgConversion2)} $toScale "
             }
         }
         catch (ex: NumberFormatException)
