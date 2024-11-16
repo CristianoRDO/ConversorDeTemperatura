@@ -4,7 +4,18 @@
     <string name="hint_temperature">Digite a Temperatura:</string>
     <string name="celsius">Celsius</string>
     <string name="fahrenheit">Fahrenheit</string>
+    <string name="kelvin">Kelvin</string>
     <string name="msgCtoF">Realizada a Conversão de Celsius para Fahrenheit</string>
     <string name="msgFtoC">Realizada a Conversão de Fahrenheit para Celsius</string>
     <string name="error_popup_noitfy">Não foi Possível Realizar a Conversão de Temperatura com os Dados Informados</string>
+    <string name="converter">Converter</string>
+    <string name="convert_from">Converter de:</string>
+    <string name="converte_to">Converter para: </string>
+
+    <string-array name="spinner_scales">
+        <item>@string/celsius</item>
+        <item>@string/fahrenheit</item>
+        <item>@string/kelvin</item>
+    </string-array>
+
 </resources>
