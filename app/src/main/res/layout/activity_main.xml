@@ -75,6 +75,17 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/textview_convert_from"
         tools:layout_editor_absoluteY="8dp" />
 
+    <TextView
+        android:id="@+id/textview_convert_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/convert_to"
+        android:layout_marginTop="32dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_convert_from" />
+
     <Spinner
         android:id="@+id/spinner_convert_to"
         android:layout_width="0dp"
@@ -83,23 +94,13 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/textview_convert_to"
         tools:layout_editor_absoluteY="180dp" />
 
-    <TextView
-        android:id="@+id/textview_convert_to"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/converte_to"
-        android:layout_marginTop="32dp"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_convert_from" />
-
     <Button
         android:id="@+id/btn_converter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/converter"
         android:textAllCaps="true"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline_horizontal1" />
@@ -108,12 +109,24 @@
         android:id="@+id/textview_result_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="texto"
         android:textColor="@color/output"
         android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textview_text_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:textColor="@color/output"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAlignment="center"
+        app:layout_constraintTop_toTopOf="@+id/guideline_horizontal2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,7 +14,6 @@ object CelsiusStrategy: TemperatureConverter {
         return temperature + 273.15;
     }
 
-
     override fun getScale(): String {
         return "°C";
     }

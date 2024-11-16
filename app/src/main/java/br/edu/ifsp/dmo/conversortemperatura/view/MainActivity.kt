@@ -1,7 +1,9 @@
 package br.edu.ifsp.dmo.conversortemperatura.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -31,12 +33,13 @@ class MainActivity : AppCompatActivity() {
     private fun setClickListener()
     {
         binding.btnConverter.setOnClickListener(){
-            val scaleFrom = getScaleFrom();
+            val fromScale = getSelectedFromScale()
+            val toScale = getSelectedToScale()
 
-            when(scaleFrom) {
-                "Celsius" -> handleConversion(CelsiusStrategy)
-                "Fahrenheit" -> handleConversion(FahrenheitStrategy)
-                "Kelvin" -> handleConversion(KelvinStrategy)
+            when(fromScale.lowercase()) {
+                "celsius" -> handleConversion(CelsiusStrategy, toScale)
+                "fahrenheit" -> handleConversion(FahrenheitStrategy, toScale)
+                "kelvin" -> handleConversion(KelvinStrategy, toScale)
             }
         }
     }
@@ -48,42 +51,62 @@ class MainActivity : AppCompatActivity() {
         }
         catch (ex: NumberFormatException)
         {
-            throw NumberFormatException("Input Error")
+            throw NumberFormatException(getString(R.string.input_error))
         }
     }
 
-    private fun handleConversion(strategy: TemperatureConverter)
+    private fun handleConversion(strategy: TemperatureConverter, toScale: String)
     {
         converter = strategy
 
-        val temperature = getTemperature()
-        val scaleTo = getScaleTo()
+        try{
+            val temperature = getTemperature()
 
-        when(scaleTo) {
-            "Celsius" -> binding.textviewResultNumber.text = String.format("%.2f %s", converter.converterParaCelsius(temperature), converter.getScale())
-            "Fahrenheit" -> binding.textviewResultNumber.text = String.format("%.2f %s", converter.converterParaFahrenheit(temperature), converter.getScale())
-            "Kelvin" -> binding.textviewResultNumber.text = String.format("%.2f %s", converter.converterParaKelvin(temperature), converter.getScale())
+            when(toScale.lowercase()) {
+                "celsius" -> binding.textviewResultNumber.text = String.format("%.2f %s", converter.converterParaCelsius(temperature), getScaleConversion(toScale))
+                "fahrenheit" -> binding.textviewResultNumber.text = String.format("%.2f %s", converter.converterParaFahrenheit(temperature), getScaleConversion(toScale))
+                "kelvin" -> binding.textviewResultNumber.text = String.format("%.2f %s", converter.converterParaKelvin(temperature), getScaleConversion(toScale))
+            }
+
+            when(converter)
+            {
+                CelsiusStrategy -> binding.textviewTextResult.text = "${getString(R.string.msgConversion)} ${getString(R.string.celsius)} ${getString(R.string.msgConversion2)} $toScale "
+            }
         }
-
+        catch (ex: NumberFormatException)
+        {
+            Toast.makeText(this, getString(R.string.error_popup_notify), Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun setContentSpinners()
     {
-        val stringArray = resources.getStringArray(R.array.spinner_scales);
+        val stringArray = resources.getStringArray(R.array.spinner_scales)
+        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, stringArray)
 
-        binding.spinnerConvertFrom.adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, stringArray)
-        binding.spinnerConvertTo.adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, stringArray)
+        binding.spinnerConvertFrom.adapter = adapter
+        binding.spinnerConvertTo.adapter = adapter
     }
 
-    private fun getScaleFrom(): String
+    private fun getSelectedFromScale(): String
     {
         return binding.spinnerConvertFrom.selectedItem.toString()
     }
 
-    private fun getScaleTo(): String
+    private fun getSelectedToScale(): String
     {
         return binding.spinnerConvertTo.selectedItem.toString()
     }
 
+    private fun getScaleConversion(toScale: String): String
+    {
+        return when(toScale.lowercase())
+            {
+                "celsius" -> CelsiusStrategy.getScale()
+                "fahrenheit" -> FahrenheitStrategy.getScale()
+                "kelvin" -> KelvinStrategy.getScale()
+                else -> throw IllegalArgumentException()
+            }
+    }
 
 }

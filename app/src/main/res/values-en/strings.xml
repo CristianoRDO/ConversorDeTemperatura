@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Temperature Converter</string>
+    <string name="temperature">Temperature:</string>
+    <string name="input_error">Input Error</string>
+    <string name="hint_temperature">Enter the Temperature:</string>
+    <string name="celsius">Celsius</string>
+    <string name="fahrenheit">Fahrenheit</string>
+    <string name="kelvin">Kelvin</string>
+    <string name="msgConversion">Conversion completed from </string>
+    <string name="msgConversion2">to </string>
+    <string name="error_popup_notify">It was not possible to convert the temperature with the provided data</string>
+    <string name="converter">Convert</string>
+    <string name="convert_from">Convert from:</string>
+    <string name="convert_to">Convert to:</string>
+
+    <string-array name="spinner_scales">
+        <item>@string/celsius</item>
+        <item>@string/fahrenheit</item>
+        <item>@string/kelvin</item>
+    </string-array>
+</resources>
