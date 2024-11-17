@@ -15,6 +15,7 @@ import br.edu.ifsp.dmo.conversortemperatura.model.CelsiusStrategy
 import br.edu.ifsp.dmo.conversortemperatura.model.FahrenheitStrategy
 import br.edu.ifsp.dmo.conversortemperatura.model.KelvinStrategy
 import br.edu.ifsp.dmo.conversortemperatura.model.StaticConverters
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,9 +27,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setClickListener();
-        setContentSpinners();
-
+        setClickListener()
+        setContentSpinners()
     }
 
     private fun setClickListener()
@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
                 "celsius" -> handleConversion(CelsiusStrategy)
                 "fahrenheit" -> handleConversion(FahrenheitStrategy)
                 "kelvin" -> handleConversion(KelvinStrategy)
+                else -> throw IllegalArgumentException(getString(R.string.input_error))
             }
         }
     }
@@ -63,17 +64,9 @@ class MainActivity : AppCompatActivity() {
             val fromScale = getSelectedFromScale()
             val temperature = transformTemperatureForFahrenheit(fromScale, getTemperature())
 
-            when(converter) {
-                CelsiusStrategy -> binding.textviewResultNumber.text = String.format("%.2f %s", converter.converter(temperature), CelsiusStrategy.getScale())
-                FahrenheitStrategy -> binding.textviewResultNumber.text = String.format("%.2f %s", converter.converter(temperature), FahrenheitStrategy.getScale())
-                KelvinStrategy -> binding.textviewResultNumber.text = String.format("%.2f %s", converter.converter(temperature), KelvinStrategy.getScale())
-            }
+            binding.textviewResultNumber.text = displayTemperature(temperature)
+            binding.textviewTextResult.text = displayConversionMessage(fromScale)
 
-            when(converter) {
-                CelsiusStrategy -> binding.textviewTextResult.text = "${getString(R.string.msgConversion)} $fromScale ${getString(R.string.msgConversion2)} ${getString(R.string.celsius)}"
-                FahrenheitStrategy -> binding.textviewTextResult.text = "${getString(R.string.msgConversion)} $fromScale ${getString(R.string.msgConversion2)} ${getString(R.string.fahrenheit)}"
-                KelvinStrategy -> binding.textviewTextResult.text = "${getString(R.string.msgConversion)} $fromScale ${getString(R.string.msgConversion2)} ${getString(R.string.kelvin)}"
-            }
         }
         catch (ex: NumberFormatException)
         {
@@ -110,5 +103,21 @@ class MainActivity : AppCompatActivity() {
             else -> throw IllegalArgumentException(getString(R.string.input_error))
         }
     }
+
+    private fun displayTemperature(temperature: Double): String
+    {
+        return String.format(Locale.getDefault(), "%.2f %s", converter.converter(temperature), converter.getScale())
+    }
+
+    private fun displayConversionMessage(fromScale: String): String
+    {
+        return when(converter) {
+            CelsiusStrategy -> "${getString(R.string.msgConversion)} $fromScale ${getString(R.string.msgConversion2)} ${getString(R.string.celsius)}"
+            FahrenheitStrategy -> "${getString(R.string.msgConversion)} $fromScale ${getString(R.string.msgConversion2)} ${getString(R.string.fahrenheit)}"
+            KelvinStrategy -> "${getString(R.string.msgConversion)} $fromScale ${getString(R.string.msgConversion2)} ${getString(R.string.kelvin)}"
+            else -> throw IllegalArgumentException(getString(R.string.input_error))
+        }
+    }
+
 
 }
